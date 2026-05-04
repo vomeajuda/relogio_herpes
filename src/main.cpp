@@ -135,25 +135,33 @@ void drawScreen(DateTime now, float temp, float hum) {
   int mo = (mode == MODE_NORMAL) ? now.month()  : editMonth;
   int y  = (mode == MODE_NORMAL) ? now.year()   : editYear;
 
-  // TIME
+  //TIME
   display.setTextSize(2);
   display.setCursor(0, 0);
-  char buf[10];
+  char buf[20];
   sprintf(buf, "%02d:%02d:%02d", h, m, now.second());
   display.println(buf);
 
-  // DAY
+  //DATE
   display.setTextSize(1);
   display.setCursor(0, 20);
-  display.println(daysOfWeek[now.dayOfTheWeek()]);
-
-  // DATE
-  display.setCursor(0, 30);
-  sprintf(buf, "%02d/%02d/%04d", d, mo, y);
+  sprintf(buf, "%s, %02d/%02d/%04d",
+          daysOfWeek[now.dayOfTheWeek()],
+          d, mo, y);
   display.println(buf);
 
-  // MODE INDICATOR
-  display.setCursor(0, 40);
+  //TEMP
+  display.setCursor(0, 36);
+  display.print("T:");
+  display.print(temp);
+  display.print("C ");
+
+  display.print("H:");
+  display.print(hum);
+  display.print("%");
+
+  //AJUST
+  display.setCursor(0, 54);
   switch (mode) {
     case MODE_HOUR:   display.println("Ajuste: Hora"); break;
     case MODE_MINUTE: display.println("Ajuste: Minuto"); break;
@@ -162,16 +170,6 @@ void drawScreen(DateTime now, float temp, float hum) {
     case MODE_YEAR:   display.println("Ajuste: Ano"); break;
     default:          display.println("Normal"); break;
   }
-
-  // TEMP + HUM
-  display.setCursor(0, 52);
-  display.print("T:");
-  display.print(temp);
-  display.print("C ");
-
-  display.print("H:");
-  display.print(hum);
-  display.print("%");
 
   display.display();
 }
