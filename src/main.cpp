@@ -55,7 +55,7 @@ void setup() {
   dht.begin();
 
   if (!rtc.begin()) {
-    Serial.println("RTC not found!");
+    Serial.println("RTC desconectado");
     while (1);
   }
 
@@ -64,7 +64,7 @@ void setup() {
   }
 
   if (!display.begin(SSD1306_SWITCHCAPVCC, 0x3C)) {
-    Serial.println("OLED failed!");
+    Serial.println("OLED desconectado");
     while (1);
   }
 
