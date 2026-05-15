@@ -10,7 +10,7 @@
 Adafruit_SSD1306 display(SCREEN_WIDTH, SCREEN_HEIGHT, &Wire, -1);
 
 //RTC
-RTC_DS1307 rtc;
+RTC_DS3231 rtc;
 
 //DHT
 #define DHTPIN 2
@@ -59,7 +59,7 @@ void setup() {
     while (1);
   }
 
-  if (!rtc.isrunning()) {
+  if (rtc.lostPower()) {
     rtc.adjust(DateTime(F(__DATE__), F(__TIME__)));
   }
 
